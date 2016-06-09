@@ -1,0 +1,59 @@
+a.not-active {
+   pointer-events: none;
+   cursor: default;
+   color:#808080;
+}
+
+a.active {
+  color: #ccffcc;
+	background-color: #006666; /* Change Link Color */
+}
+
+header {
+  background-color: #CCFFCC;
+}
+
+footer {
+  /*color: black;*/
+  color: #66cccc;
+  /*border-color: #66cccc;*/
+  border: thin solid #66cccc;
+  padding: .3em;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}
+
+h6 a {
+  padding: .3em;
+  padding-left: .5em;
+  padding-right: .5em;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}
+
+h6 a:hover {
+  /*color: #006666;*/
+  color: #ccffcc;
+	background-color: #66cc66;
+  text-decoration: none;
+
+}
+
+.post-title {
+  padding: .3em;
+  /*border: thin solid #cc9933;*/
+  background-color: #ffcc99;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}
+
+
+
+/*#footer
+{
+    position: fixed;
+    bottom: 0;
+}*/
