@@ -83,7 +83,7 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "load_save_print"}
+var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "create_4", "create_5", "load_save_print"}
 
 func getActiveMenu( view string ) string {
   if strings.HasPrefix(view, "create") {

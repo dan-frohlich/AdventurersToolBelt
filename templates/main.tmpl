@@ -96,19 +96,19 @@
 {{end}}
 
 {{ define "heading" }}
-{{if eq .view "home" }}
+{{if eq .acviveMenu "home" }}
 <b>The Adventurers! Toolbelt</b>. To get started, <a href="/create_1">Create an Adventurer!</a>
 {{end}}
-{{if eq .view "about" }}
+{{if eq .acviveMenu "about" }}
   About the <b>Adventurers! Toolbelt</b>.
 {{end}}
-{{if eq .view "create_1" }}
+{{if eq .acviveMenu "create" }}
   Creating with the <b>Adventurers! Toolbelt</b>.
 {{end}}
-{{if eq .view "options" }}
+{{if eq .acviveMenu "options" }}
   <b>Adventurers! Toolbelt</b> Character, Game and Setting Options.
 {{end}}
-{{if eq .view "load_save_print" }}
+{{if eq .acviveMenu "load_save_print" }}
   <b>Adventurers! Toolbelt</b> Character File Management and Printing.
 {{end}}
 {{end}}
@@ -129,7 +129,17 @@
 {{if eq .view "load_save_print" }}
 {{template "main_load_save_print" . }}
 {{end}}
+
+{{if eq .acviveMenu "create" }}
+<h6 class="post-title">Character Creation Progress: <a {{if eq .view "create_1" }}class="active"{{end}} href="/create_1">1</a>
+<a {{if eq .view "create_2" }}class="active"{{end}} href="/create_2">2</a>
+<a {{if eq .view "create_3" }}class="active"{{end}} href="/create_3">3</a>
+<a {{if eq .view "create_4" }}class="active"{{end}} href="/create_4">4</a>
+<a {{if eq .view "create_5" }}class="active"{{end}} href="/create_5">5</a></h6>
 {{end}}
+
+{{end}}
+
 
 {{ define "main_home" }}
 <h4>this is the home page.</h4>
@@ -143,6 +153,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 <p></p>
 <p>Concept: <input name="Concept" type="text"> - A brief description of your hero (see below).</p>
 {{end}}
+
 {{ define "main_options" }} <h4>[Optional rules toggles, Setting Selection.]</h4>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 {{end}}

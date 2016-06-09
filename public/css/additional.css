@@ -2,6 +2,9 @@ a.not-active {
    pointer-events: none;
    cursor: default;
    color:#808080;
+   background-color: #cccccc;
+   border-color: #808080;
+
 }
 
 a.active {
@@ -25,9 +28,11 @@ footer {
 }
 
 h6 a {
+  background-color: #ccffcc;
   padding: .3em;
   padding-left: .5em;
   padding-right: .5em;
+  border: thin solid #66cc66;
   border-radius:10px;
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
