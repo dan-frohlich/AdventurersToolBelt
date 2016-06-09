@@ -36,11 +36,11 @@
             "https://www.google.com/?gws_rd=ssl#q=adventurers!+rpg&pws=0index.xml"
             rel="me"><i class="fa fa-rss-square fa-2x"></i></a>
         </div>
-        <h6><a class="active" href="">Home</a></h6>
-        <h6><a href="">Create an Adventurer!</a></h6>
-        <h6><a href="">Options</a></h6>
-        <h6><a href="">About</a></h6>
-        <h6><a href="">Load / Save / Print</a></h6>
+        <h6><a {{if eq .acviveMenu "home" }}class="active"{{end}} href="/home">Home</a></h6>
+        <h6><a {{if eq .acviveMenu "create" }}class="active"{{end}} href="/create_1">Create an Adventurer!</a></h6>
+        <h6><a {{if eq .acviveMenu "options" }}class="active"{{end}} href="/options">Options</a></h6>
+        <h6><a {{if eq .acviveMenu "about" }}class="active"{{end}} href="/about">About</a></h6>
+        <h6><a {{if eq .acviveMenu "load_save_print" }}class="active"{{end}} href="/load_save_print">Load / Save / Print</a></h6>
     </header>
     <main id="content">
         <section class="post">
@@ -56,12 +56,18 @@
     </main>
     <footer id="footer">
         <section id="footer-message">
-            &copy; Adventurers! Toolbelt. All rights reserved. Powered by
-            <a href="http://golang.org/" target="_blank">Go</a>. <a href=
+            &copy; Adventurers! Toolbelt. All rights reserved.
+            Design and coding by <a href="https://www.linkedin.com/in/danfrohlich" target="_blank">Dan Frohlich</a>.
+            Game Design and Publishing <a href="http://wydawnictwogramel.pl/" target="_blank">Gramel</a>
+        </section>
+        <section id="footer-message2">
+            Powered by
+            <a href="http://golang.org/" target="_blank">Go programming language</a>. <a href=
             "https://github.com/kathyqian/crisp-ghost-theme" target=
             "_blank">Crisp</a> theme by <a href="http://kathyqian.com" target=
-            "_blank">Kathy Qian</a>.
-            Theme hacked with <a href="http://paletton.com/palette.php?uid=72Q0u0kgQuW71PJc4Exk%2BqyoXmg">paletton pallet</a>
+            "_blank">Kathy Qian</a>
+            hacked with <a href="http://paletton.com/palette.php?uid=72Q0u0kgQuW71PJc4Exk%2BqyoXmg"
+            target="_blank">paletton pallet</a>
         </section>
     </footer><!-- <script>
       (function(c,f){asyncLoader=function(i,h){i.foreach(function(k,j){e(j,d(j),h)});if(typeof h.callback=="function"){var g=setInterval(function(){if(f.readyState==="complete"){clearInterval(g);h.callback()}},10)}};var d=function(g){var h=g.split(".");return h[h.length-1]},e=function(h,i,g){switch(i){case"js":a(h,g);break;case"css":b(h);break;default:break}},a=function(i,h){var g=document.createElement("script");g.type="text/javascript";g.async=true;g.src=i;document.getElementsByTagName("head")[0].appendChild(g)},b=function(g){var h=document.createElement("link");h.type="text/css";h.rel="stylesheet";h.href=g;document.getElementsByTagName("head")[0].appendChild(h)};Array.prototype.foreach=function(h){for(var g=0;g<this.length;g++){h(g,this[g])}}})(this,document);
@@ -91,13 +97,19 @@
 
 {{ define "heading" }}
 {{if eq .view "home" }}
-<b>The Adventurers! Toolbelt</b>. To get started, <a href="">Create an Adventurer!</a>
+<b>The Adventurers! Toolbelt</b>. To get started, <a href="/create_1">Create an Adventurer!</a>
 {{end}}
 {{if eq .view "about" }}
   About the <b>Adventurers! Toolbelt</b>.
 {{end}}
 {{if eq .view "create_1" }}
   Creating with the <b>Adventurers! Toolbelt</b>.
+{{end}}
+{{if eq .view "options" }}
+  <b>Adventurers! Toolbelt</b> Character, Game and Setting Options.
+{{end}}
+{{if eq .view "load_save_print" }}
+  <b>Adventurers! Toolbelt</b> Character File Management and Printing.
 {{end}}
 {{end}}
 
@@ -110,6 +122,12 @@
 {{end}}
 {{if eq .view "create_1" }}
   {{template "main_create_1" . }}
+{{end}}
+{{if eq .view "options" }}
+{{template "main_options" . }}
+{{end}}
+{{if eq .view "load_save_print" }}
+{{template "main_load_save_print" . }}
 {{end}}
 {{end}}
 
@@ -124,4 +142,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 <p>Name: <input name="Name" type="text" value="{{.Name}}"> - Identifies your character, choose a cool one!</p>
 <p></p>
 <p>Concept: <input name="Concept" type="text"> - A brief description of your hero (see below).</p>
+{{end}}
+{{ define "main_options" }} <h4>[Optional rules toggles, Setting Selection.]</h4>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+{{end}}
+{{ define "main_load_save_print" }} <h4>[Load a character, save a character or print / pdf export.]</h4>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 {{end}}

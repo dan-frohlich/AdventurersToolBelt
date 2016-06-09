@@ -43,8 +43,12 @@ h6 a:hover {
 
 .post-title {
   padding: .3em;
+  padding-left: .5em;
+  padding-right: .5em;
+  color: #99cccc;
   /*border: thin solid #cc9933;*/
-  background-color: #ffcc99;
+  /*background-color: #ffcc99;*/
+  background-color: #336699;
   border-radius:10px;
   -moz-border-radius:10px;
   -webkit-border-radius:10px;

@@ -69,24 +69,41 @@ func main() {
 
 func mainHandler(w http.ResponseWriter, r *http.Request) {
 
-	path := r.URL.Path
-	components := strings.Split(path, "/")
-  log.Println("components", components)
-  log.Println("len", len(components))
-  log.Println("cap", cap(components))
-	view := "home"
-	if len(components) > 1 && components[1] != "" {
-		view = components[1]
-	}
+	view := getView( r )
+  activeMenu := getActiveMenu( view )
 	m := map[string]string{
 		"Message":      "Hello, world!",
 		"Name":         "Fred",
 		"TitleMessage": "This is the stuff you love!",
 		"view":         view,
+    "acviveMenu":   activeMenu,
 	}
   log.Println("m", m)
 	tmplMain.Execute(w, m)
 
+}
+
+var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "load_save_print"}
+
+func getActiveMenu( view string ) string {
+  if strings.HasPrefix(view, "create") {
+    return "create"
+  }
+  return view
+}
+
+func getView(r *http.Request ) string {
+  path:= r.URL.Path
+  pathElements := strings.Split(path, "/")
+	view := "home"
+	if len(pathElements) > 1 && pathElements[1] != "" {
+    for _, v := range VIEWS {
+      if v == pathElements[1] {
+        view = pathElements[1]
+      }
+    }
+	}
+	return view
 }
 
 var templateBox *rice.Box
