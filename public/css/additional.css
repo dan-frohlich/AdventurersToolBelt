@@ -16,9 +16,14 @@ header {
   background-color: #CCFFCC;
 }
 
+body {
+    background-color: #FFFFCC;
+}
+
 footer {
   /*color: black;*/
   color: #66cccc;
+  background-color: white;
   /*border-color: #66cccc;*/
   border: thin solid #66cccc;
   padding: .3em;

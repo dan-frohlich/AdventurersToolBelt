@@ -19,6 +19,10 @@ func main() {
 	cssFileServer := http.StripPrefix("/css/", http.FileServer(cssBox.HTTPBox()))
 	http.Handle("/css/", cssFileServer)
 
+  jsBox := rice.MustFindBox("public/js/")
+	jsFileServer := http.StripPrefix("/js/", http.FileServer(jsBox.HTTPBox()))
+	http.Handle("/js/", jsFileServer)
+
 	imagesBox := rice.MustFindBox("public/images/")
 	imagesFileServer := http.StripPrefix("/images/", http.FileServer(imagesBox.HTTPBox()))
 	http.Handle("/images/", imagesFileServer)
@@ -78,6 +82,15 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 		"view":         view,
     "acviveMenu":   activeMenu,
 	}
+
+  // add query params for now...
+  values := r.URL.Query()
+  for k, z := range values {
+    for _, v := range z {
+      m[k] = v
+    }
+  }
+
   log.Println("m", m)
 	tmplMain.Execute(w, m)
 
