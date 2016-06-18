@@ -18,6 +18,12 @@ header {
 
 body {
     background-color: #FFFFCC;
+    /*background-color: #FFE1C7;*/
+    /*background-color: #FFCB9F;*/
+    /*background-color: #D38949;*/
+    /*background-color: #B16727;*/
+    /*background-color: #444444;*/
+
 }
 
 footer {
@@ -49,6 +55,10 @@ h6 a:hover {
 	background-color: #66cc66;
   text-decoration: none;
 
+}
+
+td div {
+  color: black;
 }
 
 .post-title {

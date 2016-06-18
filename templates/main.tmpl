@@ -47,6 +47,9 @@
           max: 6,
           title: "Strength",
           label: '',
+          valueFontColor: "#000000",
+          titleFontColor: "#000000",
+          labelFontColor: "#000000",
           levelColorsGradient: false
         } );
 
@@ -58,6 +61,9 @@
           max: 6,
           title: "Agility",
           label: '',
+          valueFontColor: "#000000",
+          titleFontColor: "#000000",
+          labelFontColor: "#000000",
           levelColorsGradient: false
         } );
 
@@ -69,6 +75,9 @@
           max: 6,
           title: "Mind",
           label: '',
+          valueFontColor: "#000000",
+          titleFontColor: "#000000",
+          labelFontColor: "#000000",
           levelColorsGradient: false
         } );
 
@@ -80,6 +89,9 @@
           max: 6,
           title: "Attribute Points",
           label: '',
+          valueFontColor: "#000000",
+          titleFontColor: "#000000",
+          labelFontColor: "#000000",
           levelColorsGradient: false
         } );
 
@@ -89,15 +101,32 @@
           gaugeWidthScale: 0.7,
           min: 0,
           max: 6,
-          title: "Attribute Heroism",
+          title: "Heroism",
           label: '',
+          valueFontColor: "#000000",
+          titleFontColor: "#000000",
+          labelFontColor: "#000000",
+          levelColorsGradient: false
+        } );
+
+      gageEndurance = new JustGage( {
+          id: "gageEndurance",
+          value: 1,
+          gaugeWidthScale: 0.7,
+          min: 1,
+          max: 15,
+          title: "Endurance",
+          label: '',
+          valueFontColor: "#000000",
+          titleFontColor: "#000000",
+          labelFontColor: "#000000",
           levelColorsGradient: false
         } );
 
 
-      setStrength( 0 )
-      setAgility( 0 )
-      setMind( 0 )
+      setStrength( {{.Strength}} )
+      setAgility( {{.Agility}} )
+      setMind( {{.Mind}} )
     }
 
     var str, agi, mnd =0
@@ -110,6 +139,8 @@
       gagePoints.refresh( points );
       heroism = 1 + Math.min(str, agi, mnd)
       gageHeroism.refresh( heroism );
+      endurance = 3 + +str + +agi
+      gageEndurance.refresh( endurance );
     }
 
     setAgility = function ( x ) {
@@ -119,6 +150,8 @@
       gagePoints.refresh( points );
       heroism = 1 + Math.min(str, agi, mnd)
       gageHeroism.refresh( heroism );
+      endurance = 3 + +str + +agi
+      gageEndurance.refresh( endurance );
     }
 
     setMind = function ( x ) {
@@ -273,28 +306,31 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
   <tr>
 
     <td style="text-align: center">
-    <div id="gageStrength" style="width:150px; height:120px" ></div>
-    <input style="width:100px; height:20px" type="range" name="Strength" min="-1" max="6" value="{{.Strength}}" onchange="setStrength( this.value )" />
+    <div style="float:left">
+    <div id="gageStrength" style="width:150px; height:120px" data-toggle="tooltip" title="Physical prowess and vigor"></div>
+    <input autofocus style="width:100px; height:20px" type="range" name="Strength" min="-1" max="6" value="{{.Strength}}" onchange="setStrength( this.value )" />
+    </div>
     </td>
 
     <td style="text-align: center">
-    <div id="gageAgility" style="width:150px; height:120px" ></div>
+    <div id="gageAgility" style="width:150px; height:120px" data-toggle="tooltip" title="Nimbleness and basic defense " ></div>
     <input style="width:100px; height:20px" type="range" name="Agility" min="-1" max="6" value="{{.Agility}}" onchange="setAgility( this.value )" />
     </td>
 
     <td style="text-align: center">
-    <div id="gageMind" style="width:150px; height:120px" ></div>
+    <div id="gageMind" style="width:150px; height:120px" data-toggle="tooltip" title="Intellect, ingenuity and knowledge" ></div>
     <input style="width:100px; height:20px" type="range" name="Mind" min="-1" max="6" value="{{.Mind}}" onchange="setMind( this.value )" />
     </td>
-
     <td style="text-align: center">
-    <div id="gagePoints" style="width:200px; height:160px" ></div>
-    <!-- <input style="width:100px; height:20px" type="range" name="Strength" min="-1" max="6" value="{{.Strength}}" onchange="setStrength( this.value )" /> -->
+      <div id="gagePoints" style="width:200px; height:160px" data-toggle="tooltip" title="Remaining Points to Spend"></div>
     </td>
 
     <td style="text-align: center">
-    <div id="gageHeroism" style="width:100px; height:80px" ></div>
-    <!-- <input style="width:100px; height:20px" type="range" name="Strength" min="-1" max="6" value="{{.Strength}}" onchange="setStrength( this.value )" /> -->
+    <div id="gageHeroism" style="width:100px; height:80px" data-toggle="tooltip" title="Heroism = min ( Str | Agi | Mnd ) +1"></div>
+    </td>
+
+    <td style="text-align: center">
+    <div id="gageEndurance" style="width:100px; height:80px" data-toggle="tooltip" title="Endurance = Str + Agi +3"></div>
     </td>
   </tr>
 </table>
