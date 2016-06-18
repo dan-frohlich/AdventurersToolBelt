@@ -5,6 +5,9 @@ import (
 	"log"
 	"net/http"
 	"strings"
+  "strconv"
+
+  "adventurers_tools/adventurer"
 
 	"github.com/GeertJohan/go.rice"
 	// "github.com/thrisp/djinn"
@@ -31,51 +34,12 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-// var J *djinn.Djinn
-// var templateBox *rice.Box
-// var err error
-//
-// func initTemplates() {
-// 	templateBox, err = rice.FindBox("templates")
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-//
-// 	m := map[string]string{
-// 		"main":     load("main.tmpl"),
-// 		"header_1": load("header_1.tmpl"),
-// 	}
-// 	J := djinn.New()
-//
-//   djinn.Loaders(&djinn.MapLoader{ TemplateMap: m})(J)
-// 	// J.AddLoaders(&MapLoader{m: &m})
-//
-// }
-//
-// func load(file string) string {
-// 	text, err := templateBox.String(file)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	return text
-// }
-
-// func mainHandler(w http.ResponseWriter, r *http.Request) {
-// 	// fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
-// 	// parse and execute the template
-// 	J.Render(w, "main", map[string]string{
-// 		"Message":      "Hello, world!",
-// 		"Name":         "Fred",
-// 		"TitleMessage": "This is the stuff you love!",
-// 	})
-//
-// }
-
 func mainHandler(w http.ResponseWriter, r *http.Request) {
 
 	view := getView( r )
   activeMenu := getActiveMenu( view )
-	m := map[string]string{
+
+	model := map[string]string{
 		"Message":      "Hello, world!",
 		"Name":         "Fred",
 		"TitleMessage": "This is the stuff you love!",
@@ -87,13 +51,25 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
   values := r.URL.Query()
   for k, z := range values {
     for _, v := range z {
-      m[k] = v
+      model[k] = v
     }
   }
 
-  log.Println("m", m)
-	tmplMain.Execute(w, m)
+  if view == "create_2" {
+    create2ViewHandler(model)
+  }
 
+  log.Println("model", model)
+	tmplMain.Execute(w, model)
+
+}
+
+func create2ViewHandler(model map[string]string){
+  adv := adventurer.NewAdventurer()
+  model["Strength"] = strconv.Itoa(adv.GetStrength())
+  model["Agility"] = strconv.Itoa(adv.GetAgility())
+  model["Mind"] = strconv.Itoa(adv.GetMind())
+  model["CreationPoints"] = strconv.Itoa(adv.GetCreationPoints())
 }
 
 var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "create_4", "create_5", "load_save_print"}

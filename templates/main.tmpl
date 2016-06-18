@@ -302,24 +302,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 {{end}}
 
 {{ define "main_create_2" }}
-<div class="mainAttributeGroup" >
-  <div class="attribute">
-    <div id="gagePoints" style="width:200px; height:160px"
-        data-toggle="tooltip" title="Remaining Points to Spend"></div>
-  </div>
-</div>
-
-<div class="secondaryAttributeGroup" >
-  <div class="attribute">
-    <div id="gageHeroism"
-        data-toggle="tooltip" title="Heroism = min ( Str | Agi | Mnd ) +1"></div>
-  </div>
-  <div class="attribute">
-    <div id="gageEndurance"
-        data-toggle="tooltip" title="Endurance = Str + Agi +3"></div>
-  </div>
-</div>
-
 <div class="primaryAttributeGroup">
   <div class="attribute">
     <div id="gageStrength"
@@ -347,42 +329,28 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
   </div>
 </div>
 
+<div class="mainAttributeGroup" >
+  <div class="attribute">
+    <div id="gagePoints" style="width:200px; height:160px"
+        data-toggle="tooltip" title="Remaining Points to Spend"></div>
+  </div>
+</div>
+
+<div class="secondaryAttributeGroup" >
+  <div class="attribute">
+    <div id="gageHeroism"
+        data-toggle="tooltip" title="Heroism = min ( Str | Agi | Mnd ) +1"></div>
+  </div>
+  <div class="attribute">
+    <div id="gageEndurance"
+        data-toggle="tooltip" title="Endurance = Str + Agi +3"></div>
+  </div>
+</div>
+
+
+
 {{end}}
 
-{{ define "main_create_2x" }}
-<table>
-  <tr>
-
-    <td style="text-align: center">
-    <div style="float:left">
-    <div id="gageStrength" style="width:150px; height:120px" data-toggle="tooltip" title="Physical prowess and vigor"></div>
-    <input autofocus style="width:100px; height:20px" type="range" name="Strength" min="-1" max="6" value="{{.Strength}}" onchange="setStrength( this.value )" />
-    </div>
-    </td>
-
-    <td style="text-align: center">
-    <div id="gageAgility" style="width:150px; height:120px" data-toggle="tooltip" title="Nimbleness and basic defense " ></div>
-    <input style="width:100px; height:20px" type="range" name="Agility" min="-1" max="6" value="{{.Agility}}" onchange="setAgility( this.value )" />
-    </td>
-
-    <td style="text-align: center">
-    <div id="gageMind" style="width:150px; height:120px" data-toggle="tooltip" title="Intellect, ingenuity and knowledge" ></div>
-    <input style="width:100px; height:20px" type="range" name="Mind" min="-1" max="6" value="{{.Mind}}" onchange="setMind( this.value )" />
-    </td>
-    <td style="text-align: center">
-      <div id="gagePoints" style="width:200px; height:160px" data-toggle="tooltip" title="Remaining Points to Spend"></div>
-    </td>
-
-    <td style="text-align: center">
-    <div id="gageHeroism" style="width:100px; height:80px" data-toggle="tooltip" title="Heroism = min ( Str | Agi | Mnd ) +1"></div>
-    </td>
-
-    <td style="text-align: center">
-    <div id="gageEndurance" style="width:100px; height:80px" data-toggle="tooltip" title="Endurance = Str + Agi +3"></div>
-    </td>
-  </tr>
-</table>
-{{end}}
 
 {{ define "main_options" }} <h4>[Optional rules toggles, Setting Selection.]</h4>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
