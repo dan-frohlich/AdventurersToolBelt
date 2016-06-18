@@ -57,9 +57,70 @@ h6 a:hover {
 
 }
 
-td div {
+div.attribute {
   color: black;
+  text-align: center;
+  /*border: thin dashed cornflowerblue;*/
+  /*display: inline-block;*/
+  /*float: left;*/
 }
+
+div.primaryAttributeGroup {
+  /*float: left;*/
+  border: medium solid #66cccc;
+  /*background-color: white;*/
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+
+  display: inline-block;
+}
+
+div.primaryAttributeGroup div.attribute {
+  display: inline-block;
+}
+
+div.primaryAttributeGroup div.attribute div {
+  /*border: thin dotted black;*/
+  width:150px;
+  height:120px;
+  padding-bottom: 2em;
+}
+
+div.mainAttributeGroup {
+  color: black;
+  /*float: right;*/
+  display: inline-block;
+  border: thin solid #66cccc;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+
+}
+
+div.mainAttributeGroup div.attribute div {
+  /*border: thin dotted black;*/
+  width:200px;
+  height:160px;
+}
+
+div.secondaryAttributeGroup {
+  /*color: black;*/
+  /*float: right;*/
+  display: inline-block;
+  border: thin solid #66cccc;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+
+}
+
+div.secondaryAttributeGroup div.attribute div {
+  /*border: thin dotted black;*/
+  width:100px;
+  height:80px;
+}
+
 
 .post-title {
   padding: .3em;

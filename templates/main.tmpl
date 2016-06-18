@@ -302,6 +302,54 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 {{end}}
 
 {{ define "main_create_2" }}
+<div class="mainAttributeGroup" >
+  <div class="attribute">
+    <div id="gagePoints" style="width:200px; height:160px"
+        data-toggle="tooltip" title="Remaining Points to Spend"></div>
+  </div>
+</div>
+
+<div class="secondaryAttributeGroup" >
+  <div class="attribute">
+    <div id="gageHeroism"
+        data-toggle="tooltip" title="Heroism = min ( Str | Agi | Mnd ) +1"></div>
+  </div>
+  <div class="attribute">
+    <div id="gageEndurance"
+        data-toggle="tooltip" title="Endurance = Str + Agi +3"></div>
+  </div>
+</div>
+
+<div class="primaryAttributeGroup">
+  <div class="attribute">
+    <div id="gageStrength"
+        data-toggle="tooltip" title="Physical prowess and vigor">
+      <input autofocus style="width:100px; height:20px"
+          type="range" name="Strength" min="-1" max="6" value="{{.Strength}}"
+          onchange="setStrength( this.value )" />
+    </div>
+  </div>
+  <div class="attribute">
+    <div id="gageAgility"
+        data-toggle="tooltip" title="Nimbleness and basic defense">
+      <input autofocus style="width:100px; height:20px"
+          type="range" name="Agility" min="-1" max="6" value="{{.Agility}}"
+          onchange="setAgility( this.value )" />
+    </div>
+  </div>
+  <div class="attribute">
+    <div id="gageMind"
+        data-toggle="tooltip" title="Intellect, ingenuity and knowledge">
+      <input autofocus style="width:100px; height:20px"
+          type="range" name="Mind" min="-1" max="6" value="{{.Mind}}"
+          onchange="setMind( this.value )" />
+    </div>
+  </div>
+</div>
+
+{{end}}
+
+{{ define "main_create_2x" }}
 <table>
   <tr>
 
