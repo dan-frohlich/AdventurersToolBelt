@@ -43,8 +43,8 @@
           id: "gageStrength",
           value: 0,
           gaugeWidthScale: 0.7,
-          min: -1,
-          max: 6,
+          min: {{.rules_min_stat}},
+          max: {{.rules_max_stat}},
           title: "Strength",
           label: '',
           valueFontColor: "#000000",
@@ -57,8 +57,8 @@
           id: "gageAgility",
           value: 0,
           gaugeWidthScale: 0.7,
-          min: -1,
-          max: 6,
+          min: {{.rules_min_stat}},
+          max: {{.rules_max_stat}},
           title: "Agility",
           label: '',
           valueFontColor: "#000000",
@@ -71,8 +71,8 @@
           id: "gageMind",
           value: 0,
           gaugeWidthScale: 0.7,
-          min: -1,
-          max: 6,
+          min: {{.rules_min_stat}},
+          max: {{.rules_max_stat}},
           title: "Mind",
           label: '',
           valueFontColor: "#000000",
@@ -83,10 +83,10 @@
 
       gagePoints = new JustGage( {
           id: "gagePoints",
-          value: 6,
+          value: {{.rules_initial_stat_points}},
           gaugeWidthScale: 0.7,
           min: 0,
-          max: 6,
+          max: {{.rules_max_stat_points}},
           title: "Attribute Points",
           label: '',
           valueFontColor: "#000000",
@@ -100,7 +100,7 @@
           value: 1,
           gaugeWidthScale: 0.7,
           min: 0,
-          max: 6,
+          max: {{.rules_max_stat}}+1,
           title: "Heroism",
           label: '',
           valueFontColor: "#000000",
@@ -113,8 +113,8 @@
           id: "gageEndurance",
           value: 1,
           gaugeWidthScale: 0.7,
-          min: 1,
-          max: 15,
+          min: {{.rules_min_end}},
+          max: {{.rules_max_end}},
           title: "Endurance",
           label: '',
           valueFontColor: "#000000",
@@ -124,44 +124,50 @@
         } );
 
 
-      setStrength( {{.Strength}} )
-      setAgility( {{.Agility}} )
-      setMind( {{.Mind}} )
+      setStrength( {{.char_strength}} )
+      setAgility( {{.char_agility}} )
+      setMind( {{.char_mind}} )
     }
 
     var str, agi, mnd =0
-    var poitns = 6;
+    var points = {{.rules_initial_stat_points}};
     var heroism = 1;
     setStrength = function ( x ) {
       gageStrength.refresh( x );
       str = x ;
-      points = 6 - str - agi - mnd;
+      points = {{.rules_initial_stat_points}} - str - agi - mnd;
       gagePoints.refresh( points );
-      heroism = 1 + Math.min(str, agi, mnd)
+      heroism = 1 + Math.min(str, agi, mnd);
       gageHeroism.refresh( heroism );
-      endurance = 3 + +str + +agi
-      gageEndurance.refresh( endurance );
+
+      setEndurance(str, agi);
     }
 
     setAgility = function ( x ) {
       gageAgility.refresh( x );
       agi = x ;
-      points = 6 - str - agi - mnd;
+      points = {{.rules_initial_stat_points}} - str - agi - mnd;
       gagePoints.refresh( points );
-      heroism = 1 + Math.min(str, agi, mnd)
+      heroism = 1 + Math.min(str, agi, mnd);
       gageHeroism.refresh( heroism );
-      endurance = 3 + +str + +agi
-      gageEndurance.refresh( endurance );
+
+      setEndurance(str, agi);
     }
 
     setMind = function ( x ) {
       gageMind.refresh( x );
       mnd = x ;
-      points = 6 - str - agi - mnd;
+      points = {{.rules_initial_stat_points}} - str - agi - mnd;
       gagePoints.refresh( points );
-      heroism = 1 + Math.min(str, agi, mnd)
+      heroism = 1 + Math.min(str, agi, mnd);
       gageHeroism.refresh( heroism );
     }
+
+    setEndurance = function ( str, agi ) {
+      endurance = 3 + +str + +agi;
+      gageEndurance.refresh( endurance );
+    }
+
   </script>
     <header id="header">
         <a href="https://www.google.com/?gws_rd=ssl#q=adventurers!+rpg&pws=0"
@@ -307,7 +313,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     <div id="gageStrength"
         data-toggle="tooltip" title="Physical prowess and vigor">
       <input autofocus style="width:100px; height:20px"
-          type="range" name="Strength" min="-1" max="6" value="{{.Strength}}"
+          type="range" name="Strength" min="{{.rules_min_stat}}" max="{{.rules_max_stat}}" value="{{.char_strength}}"
           onchange="setStrength( this.value )" />
     </div>
   </div>
@@ -315,7 +321,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     <div id="gageAgility"
         data-toggle="tooltip" title="Nimbleness and basic defense">
       <input autofocus style="width:100px; height:20px"
-          type="range" name="Agility" min="-1" max="6" value="{{.Agility}}"
+          type="range" name="Agility" min="{{.rules_min_stat}}" max="{{.rules_max_stat}}" value="{{.char_agility}}"
           onchange="setAgility( this.value )" />
     </div>
   </div>
@@ -323,7 +329,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     <div id="gageMind"
         data-toggle="tooltip" title="Intellect, ingenuity and knowledge">
       <input autofocus style="width:100px; height:20px"
-          type="range" name="Mind" min="-1" max="6" value="{{.Mind}}"
+          type="range" name="Mind" min="{{.rules_min_stat}}" max="{{.rules_max_stat}}" value="{{.char_mind}}"
           onchange="setMind( this.value )" />
     </div>
   </div>

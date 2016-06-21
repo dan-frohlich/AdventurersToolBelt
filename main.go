@@ -5,13 +5,22 @@ import (
 	"log"
 	"net/http"
 	"strings"
-  "strconv"
+  // "strconv"
 
   "adventurers_tools/adventurer"
+  "adventurers_tools/rules"
 
 	"github.com/GeertJohan/go.rice"
 	// "github.com/thrisp/djinn"
 )
+
+var activeRules rules.Rules
+
+func init() {
+  activeRules = rules.GetAdventurersFirstEditionRules()
+  activeRules.SetOptionalCanTradeCoinsForStats( true )
+  // activeRules = rules.GetAdventurersRevisedRules()
+}
 
 func main() {
 	log.Println("initializing...")
@@ -39,13 +48,15 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	view := getView( r )
   activeMenu := getActiveMenu( view )
 
-	model := map[string]string{
+	model := map[string]interface{}{
 		"Message":      "Hello, world!",
 		"Name":         "Fred",
 		"TitleMessage": "This is the stuff you love!",
 		"view":         view,
     "acviveMenu":   activeMenu,
 	}
+
+  addRulesToModel(model)
 
   // add query params for now...
   values := r.URL.Query()
@@ -64,12 +75,21 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func create2ViewHandler(model map[string]string){
+func create2ViewHandler(model map[string]interface{}){
   adv := adventurer.NewAdventurer()
-  model["Strength"] = strconv.Itoa(adv.GetStrength())
-  model["Agility"] = strconv.Itoa(adv.GetAgility())
-  model["Mind"] = strconv.Itoa(adv.GetMind())
-  model["CreationPoints"] = strconv.Itoa(adv.GetCreationPoints())
+  model["char_strength"] = adv.GetStrength()
+  model["char_agility"] = adv.GetAgility()
+  model["char_mind"] = adv.GetMind()
+  model["CreationPoints"] = adv.GetCreationPoints()
+}
+
+func addRulesToModel(model map[string]interface{} ){
+  model["rules_min_stat"] = activeRules.GetMinStat()
+  model["rules_max_stat"] = activeRules.GetMaxStat()
+  model["rules_min_end"] = activeRules.GetMinEnd()
+  model["rules_max_end"] = activeRules.GetMaxEnd()
+  model["rules_initial_stat_points"] = activeRules.InitialStatPoints()
+  model["rules_max_stat_points"] = activeRules.MaxStatPoints()
 }
 
 var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "create_4", "create_5", "load_save_print"}
