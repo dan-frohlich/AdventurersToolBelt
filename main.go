@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 	"strings"
-  // "strconv"
+	// "strconv"
 
-  "adventurers_tools/adventurer"
-  "adventurers_tools/rules"
+	"adventurers_tools/adventurer"
+	"adventurers_tools/rules"
 
 	"github.com/GeertJohan/go.rice"
 	// "github.com/thrisp/djinn"
@@ -17,9 +17,9 @@ import (
 var activeRules rules.Rules
 
 func init() {
-  activeRules = rules.GetAdventurersFirstEditionRules()
-  activeRules.SetOptionalCanTradeCoinsForStats( true )
-  // activeRules = rules.GetAdventurersRevisedRules()
+	activeRules = rules.GetAdventurersFirstEditionRules()
+	activeRules.SetOptionalCanTradeCoinsForStats(true)
+	// activeRules = rules.GetAdventurersRevisedRules()
 }
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 	cssFileServer := http.StripPrefix("/css/", http.FileServer(cssBox.HTTPBox()))
 	http.Handle("/css/", cssFileServer)
 
-  jsBox := rice.MustFindBox("public/js/")
+	jsBox := rice.MustFindBox("public/js/")
 	jsFileServer := http.StripPrefix("/js/", http.FileServer(jsBox.HTTPBox()))
 	http.Handle("/js/", jsFileServer)
 
@@ -45,72 +45,72 @@ func main() {
 
 func mainHandler(w http.ResponseWriter, r *http.Request) {
 
-	view := getView( r )
-  activeMenu := getActiveMenu( view )
+	view := getView(r)
+	activeMenu := getActiveMenu(view)
 
 	model := map[string]interface{}{
 		"Message":      "Hello, world!",
 		"Name":         "Fred",
 		"TitleMessage": "This is the stuff you love!",
 		"view":         view,
-    "acviveMenu":   activeMenu,
+		"acviveMenu":   activeMenu,
 	}
 
-  addRulesToModel(model)
+	addRulesToModel(model)
 
-  // add query params for now...
-  values := r.URL.Query()
-  for k, z := range values {
-    for _, v := range z {
-      model[k] = v
-    }
-  }
+	// add query params for now...
+	values := r.URL.Query()
+	for k, z := range values {
+		for _, v := range z {
+			model[k] = v
+		}
+	}
 
-  if view == "create_2" {
-    create2ViewHandler(model)
-  }
+	if view == "create_2" {
+		create2ViewHandler(model)
+	}
 
-  log.Println("model", model)
+	log.Println("model", model)
 	tmplMain.Execute(w, model)
 
 }
 
-func create2ViewHandler(model map[string]interface{}){
-  adv := adventurer.NewAdventurer()
-  model["char_strength"] = adv.GetStrength()
-  model["char_agility"] = adv.GetAgility()
-  model["char_mind"] = adv.GetMind()
-  model["CreationPoints"] = adv.GetCreationPoints()
+func create2ViewHandler(model map[string]interface{}) {
+	adv := adventurer.NewAdventurer()
+	model["char_strength"] = adv.GetStrength()
+	model["char_agility"] = adv.GetAgility()
+	model["char_mind"] = adv.GetMind()
+	model["CreationPoints"] = adv.GetCreationPoints()
 }
 
-func addRulesToModel(model map[string]interface{} ){
-  model["rules_min_stat"] = activeRules.GetMinStat()
-  model["rules_max_stat"] = activeRules.GetMaxStat()
-  model["rules_min_end"] = activeRules.GetMinEnd()
-  model["rules_max_end"] = activeRules.GetMaxEnd()
-  model["rules_initial_stat_points"] = activeRules.InitialStatPoints()
-  model["rules_max_stat_points"] = activeRules.MaxStatPoints()
+func addRulesToModel(model map[string]interface{}) {
+	model["rules_min_stat"] = activeRules.GetMinStat()
+	model["rules_max_stat"] = activeRules.GetMaxStat()
+	model["rules_min_end"] = activeRules.GetMinEnd()
+	model["rules_max_end"] = activeRules.GetMaxEnd()
+	model["rules_initial_stat_points"] = activeRules.InitialStatPoints()
+	model["rules_max_stat_points"] = activeRules.MaxStatPoints()
 }
 
 var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "create_4", "create_5", "load_save_print"}
 
-func getActiveMenu( view string ) string {
-  if strings.HasPrefix(view, "create") {
-    return "create"
-  }
-  return view
+func getActiveMenu(view string) string {
+	if strings.HasPrefix(view, "create") {
+		return "create"
+	}
+	return view
 }
 
-func getView(r *http.Request ) string {
-  path:= r.URL.Path
-  pathElements := strings.Split(path, "/")
+func getView(r *http.Request) string {
+	path := r.URL.Path
+	pathElements := strings.Split(path, "/")
 	view := "home"
 	if len(pathElements) > 1 && pathElements[1] != "" {
-    for _, v := range VIEWS {
-      if v == pathElements[1] {
-        view = pathElements[1]
-      }
-    }
+		for _, v := range VIEWS {
+			if v == pathElements[1] {
+				view = pathElements[1]
+			}
+		}
 	}
 	return view
 }
