@@ -15,11 +15,14 @@ import (
 )
 
 var activeRules rules.Rules
+var theAdventurer adventurer.Adventurer
 
 func init() {
 	activeRules = rules.GetAdventurersFirstEditionRules()
 	activeRules.SetOptionalCanTradeCoinsForStats(true)
 	// activeRules = rules.GetAdventurersRevisedRules()
+
+  theAdventurer = adventurer.NewAdventurer()
 }
 
 func main() {
@@ -49,38 +52,24 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	activeMenu := getActiveMenu(view)
 
 	model := map[string]interface{}{
-		"Message":      "Hello, world!",
-		"Name":         "Fred",
-		"TitleMessage": "This is the stuff you love!",
 		"view":         view,
 		"acviveMenu":   activeMenu,
 	}
 
 	addRulesToModel(model)
 
-	// add query params for now...
-	values := r.URL.Query()
-	for k, z := range values {
-		for _, v := range z {
-			model[k] = v
-		}
-	}
+  addAdventurerToModel(model)
 
-	if view == "create_2" {
-		create2ViewHandler(model)
-	}
-
-	log.Println("model", model)
 	tmplMain.Execute(w, model)
 
 }
 
-func create2ViewHandler(model map[string]interface{}) {
-	adv := adventurer.NewAdventurer()
-	model["char_strength"] = adv.GetStrength()
-	model["char_agility"] = adv.GetAgility()
-	model["char_mind"] = adv.GetMind()
-	model["CreationPoints"] = adv.GetCreationPoints()
+func addAdventurerToModel(model map[string]interface{}) {
+  model["char"] = theAdventurer
+	model["char_strength"] = theAdventurer.GetStrength()
+	model["char_agility"] = theAdventurer.GetAgility()
+	model["char_mind"] = theAdventurer.GetMind()
+	model["CreationPoints"] = theAdventurer.GetCreationPoints()
 }
 
 func addRulesToModel(model map[string]interface{}) {
