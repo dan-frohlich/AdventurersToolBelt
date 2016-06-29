@@ -294,22 +294,22 @@
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 {{end}}
 {{ define "main_create_1" }}
-<p>Name: <input name="Name" type="text" value="{{.Name}}"> - Identifies your character, choose a cool one!</p>
+<p>Name: <input name="Name" type="text" value="{{.Name}}" placeholder="Ajax"/> - <i>Identifies your character, choose a cool one!</i></p>
 <p></p>
+<hr/>
 <p>Concept: A brief description of your hero (see below).</p>
 <p></p>
-<p>Archetype: <input name="Archetype" type="text"> - Who he is</p>
+<p>Archetype: <input name="Archetype" type="text" placeholder="Warrior"> - <i>Who he is</i></p>
 <p></p>
-<p>Definition: <input name="Definition" type="text"> - How he does it</p>
+<p>Definition: <input name="Definition" type="text" placeholder="Bold"> - <i>How he does it</i></p>
 <p></p>
-<p>Definition(2): <input name="Definition2" type="text"> - How he does it [display warning]</p>
+<p>Definition(2): <input name="Definition2" type="text"> - <i>How he does it [display warning]</i></p>
 <p></p>
-<p>Definition(3): <input name="Definition3" type="text"> - How he does it [display warning]</p>
+<p>Definition(3): <input name="Definition3" type="text"> - <i>How he does it [display warning]</i> </p>
 {{end}}
 
 {{ define "main_create_2" }}
 <div class="primaryAttributeGroup">
-  <p>CP is {{.char.GetCreationPoints}}</p>
   <div class="attribute">
     <div id="gageStrength"
         data-toggle="tooltip" title="Physical prowess and vigor">

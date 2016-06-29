@@ -122,6 +122,11 @@ div.secondaryAttributeGroup div.attribute div {
 }
 
 
+hr {
+  color: #99cccc;
+  background-color: #336699;
+}
+
 .post-title {
   padding: .3em;
   padding-left: .5em;
