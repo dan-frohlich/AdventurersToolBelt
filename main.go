@@ -66,17 +66,18 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 
 func addAdventurerToModel(model map[string]interface{}) {
   model["char"] = theAdventurer
-	model["char_strength"] = theAdventurer.GetStrength()
-	model["char_agility"] = theAdventurer.GetAgility()
-	model["char_mind"] = theAdventurer.GetMind()
-	model["CreationPoints"] = theAdventurer.GetCreationPoints()
+	// model["char_strength"] = theAdventurer.Strength()
+	// model["char_agility"] = theAdventurer.Agility()
+	// model["char_mind"] = theAdventurer.Mind()
+	model["CreationPoints"] = theAdventurer.CreationPoints()
 }
 
 func addRulesToModel(model map[string]interface{}) {
-	model["rules_min_stat"] = activeRules.GetMinStat()
-	model["rules_max_stat"] = activeRules.GetMaxStat()
-	model["rules_min_end"] = activeRules.GetMinEnd()
-	model["rules_max_end"] = activeRules.GetMaxEnd()
+  model["rules"] = activeRules
+	model["rules_min_stat"] = activeRules.MinStat()
+	model["rules_max_stat"] = activeRules.MaxStat()
+	model["rules_min_end"] = activeRules.MinEnd()
+	model["rules_max_end"] = activeRules.MaxEnd()
 	model["rules_initial_stat_points"] = activeRules.InitialStatPoints()
 	model["rules_max_stat_points"] = activeRules.MaxStatPoints()
 }

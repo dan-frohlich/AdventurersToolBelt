@@ -5,13 +5,13 @@ import (
 )
 
 type Adventurer interface {
-	GetAgility() int
-	GetBaseDef() int
-	GetCreationPoints() int
-	GetEndurance() int
-	GetHeroism() int
-	GetMind() int
-	GetStrength() int
+	Agility() int
+	BaseDef() int
+	CreationPoints() int
+	Endurance() int
+	Heroism() int
+	Mind() int
+	Strength() int
 	SetAgility(int)
 	SetCreationPoints(int)
 	SetMind(int)
@@ -29,31 +29,31 @@ func NewAdventurer() Adventurer {
 	return &adventurer{creationPoints: 6}
 }
 
-func (adv *adventurer) GetAgility() int {
+func (adv *adventurer) Agility() int {
 	return adv.agility
 }
 
-func (adv *adventurer) GetBaseDef() int {
+func (adv *adventurer) BaseDef() int {
 	return adv.agility
 }
 
-func (adv *adventurer) GetCreationPoints() int {
+func (adv *adventurer) CreationPoints() int {
 	return adv.creationPoints
 }
 
-func (adv *adventurer) GetEndurance() int {
+func (adv *adventurer) Endurance() int {
 	return adv.strength + adv.agility + 3
 }
 
-func (adv *adventurer) GetHeroism() int {
+func (adv *adventurer) Heroism() int {
 	return math.MinInt(adv.strength, adv.agility, adv.mind) + 1
 }
 
-func (adv *adventurer) GetMind() int {
+func (adv *adventurer) Mind() int {
 	return adv.mind
 }
 
-func (adv *adventurer) GetStrength() int {
+func (adv *adventurer) Strength() int {
 	return adv.strength
 }
 

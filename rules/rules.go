@@ -1,10 +1,11 @@
 package rules
 
 type Rules interface {
-	GetMinStat() int
-	GetMaxStat() int
-	GetMinEnd() int
-	GetMaxEnd() int
+	MinStat() int
+	MaxStat() int
+	MinEnd() int
+	MaxEnd() int
+  RulesEdition() RulesEdition
 	StatPointFromCoinRatio() float64
 	StatPointForCoinRatio() float64
 	MaxStatPointsFromCoin() int
@@ -14,12 +15,20 @@ type Rules interface {
 	MaxStatPoints() int
 	InitialBaseSkills() int
 	InitialAdvancedSkills() int
-	GetOptionalCanTradeCoinsForStats() bool
+	OptionalCanTradeCoinsForStats() bool
 	SetOptionalCanTradeCoinsForStats(bool)
 	ArmorGroups() []string
 	VehicleGroups() []string
 	WeaponGroups() []string
 }
+
+type RulesEdition int
+
+const (
+  UNDEFINED_EDITION = RulesEdition(0)
+  FIRST_EDITION = RulesEdition(1)
+  REVISED_EDITION = RulesEdition(2)
+)
 
 func GetAdventurersFirstEditionRules() Rules { return firstEdition }
 
@@ -40,64 +49,67 @@ var revisedEdition *rulesGuide
 func init() {
 
 	firstEdition = &rulesGuide{
-		minStat:                -1,
-		maxStat:                5,
-		minEnd:                 1,
-		maxEnd:                 13,
-		startingCoin:           30,
-		initialStatPoints:      6,
-		initialBaseSkills:      2,
-		initialAdvancedSkills:  0,
-		maxStatPointsFromCoin:  1,
-		maxStatPointsForCoin:   1,
-		statPointFromCoinRatio: 0.2,
-		statPointForCoinRatio:  2.0,
-		armorGroups:            []string{"Unarmored", "Light", "Medium", "Heavy", "Power"},
-		vehicleGroups:          []string{},
-		weaponGroups:           []string{"Blades", "Bows and Slings", "Clubs and Axes", "Polearms", "Power", "Unarmed"},
-	}
+    armorGroups:            []string{"Unarmored", "Light", "Medium", "Heavy", "Power"},
+    initialAdvancedSkills:  0,
+    initialBaseSkills:      2,
+    initialStatPoints:      6,
+    maxEnd:                 13,
+    maxStat:                5,
+    maxStatPointsForCoin:   1,
+    maxStatPointsFromCoin:  1,
+    minEnd:                 1,
+    minStat:                -1,
+    rulesEdition:           FIRST_EDITION,
+    startingCoin:           30,
+    statPointForCoinRatio:  2.0,
+    statPointFromCoinRatio: 0.2,
+    vehicleGroups:          []string{},
+    weaponGroups:           []string{"Blades", "Bows and Slings", "Clubs and Axes", "Polearms", "Power", "Unarmed"},
+  }
 
 	revisedEdition = &rulesGuide{
-		minStat:               -1,
-		maxStat:               6,
-		minEnd:                1,
-		maxEnd:                15,
-		startingCoin:          30,
-		initialStatPoints:     6,
-		initialBaseSkills:     2,
-		initialAdvancedSkills: 1,
-		armorGroups:           []string{"Unarmored", "Light", "Medium", "Heavy", "Power"},
-		vehicleGroups:         []string{"Aircraft", "Ground Vehicles", "Mounts", "Spaceships", "Watercraft"},
-		weaponGroups:          []string{"Blades", "Bows and Slings", "Clubs and Axes", "Firearms", "Polearms", "Power", "Unarmed"},
-	}
+    armorGroups:           []string{"Unarmored", "Light", "Medium", "Heavy", "Power"},
+    initialAdvancedSkills: 1,
+    initialBaseSkills:     2,
+    initialStatPoints:     6,
+    maxEnd:                15,
+    maxStat:               6,
+    minEnd:                1,
+    minStat:               -1,
+    rulesEdition:          REVISED_EDITION,
+    startingCoin:          30,
+    vehicleGroups:         []string{"Aircraft", "Ground Vehicles", "Mounts", "Spaceships", "Watercraft"},
+    weaponGroups:          []string{"Blades", "Bows and Slings", "Clubs and Axes", "Firearms", "Polearms", "Power", "Unarmed"},
+  }
 }
 
 type rulesGuide struct {
-	minStat                       int
-	maxStat                       int
-	minEnd                        int
-	maxEnd                        int
-	startingCoin                  int
-	initialStatPoints             int
-	initialBaseSkills             int
-	initialAdvancedSkills         int
-	optionalCanTradeCoinsForStats bool
-	maxStatPointsFromCoin         int
-	maxStatPointsForCoin          int
-	statPointFromCoinRatio        float64
-	statPointForCoinRatio         float64
-	armorGroups                   []string
-	vehicleGroups                 []string
-	weaponGroups                  []string
+  armorGroups                   []string
+  initialAdvancedSkills         int
+  initialBaseSkills             int
+  initialStatPoints             int
+  maxEnd                        int
+  maxStat                       int
+  maxStatPointsForCoin          int
+  maxStatPointsFromCoin         int
+  minEnd                        int
+  minStat                       int
+  optionalCanTradeCoinsForStats bool
+  rulesEdition                  RulesEdition
+  startingCoin                  int
+  statPointForCoinRatio         float64
+  statPointFromCoinRatio        float64
+  vehicleGroups                 []string
+  weaponGroups                  []string
 }
 
-func (guide *rulesGuide) GetMinStat() int { return guide.minStat }
+func (guide *rulesGuide) MinStat() int { return guide.minStat }
 
-func (guide *rulesGuide) GetMaxStat() int { return guide.maxStat }
+func (guide *rulesGuide) MaxStat() int { return guide.maxStat }
 
-func (guide *rulesGuide) GetMinEnd() int { return guide.minEnd }
+func (guide *rulesGuide) MinEnd() int { return guide.minEnd }
 
-func (guide *rulesGuide) GetMaxEnd() int { return guide.maxEnd }
+func (guide *rulesGuide) MaxEnd() int { return guide.maxEnd }
 
 func (guide *rulesGuide) StatPointFromCoinRatio() float64 { return guide.statPointFromCoinRatio }
 
@@ -123,13 +135,15 @@ func (guide *rulesGuide) InitialBaseSkills() int { return guide.initialBaseSkill
 
 func (guide *rulesGuide) InitialAdvancedSkills() int { return guide.initialAdvancedSkills }
 
-func (guide *rulesGuide) GetOptionalCanTradeCoinsForStats() bool {
+func (guide *rulesGuide) OptionalCanTradeCoinsForStats() bool {
 	return guide.optionalCanTradeCoinsForStats
 }
 
 func (guide *rulesGuide) SetOptionalCanTradeCoinsForStats(v bool) {
 	guide.optionalCanTradeCoinsForStats = v
 }
+
+func (guide *rulesGuide) RulesEdition() RulesEdition { return guide.rulesEdition }
 
 func (guide *rulesGuide) ArmorGroups() []string { return guide.armorGroups }
 
