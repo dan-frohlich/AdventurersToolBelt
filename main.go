@@ -2,7 +2,7 @@ package main
 
 import (
 	template "html/template"
-	"log"
+	// "log"
 	"net/http"
 	"strings"
 	// "strconv"
@@ -11,22 +11,30 @@ import (
 	"adventurers_tools/rules"
 
 	"github.com/GeertJohan/go.rice"
-	// "github.com/thrisp/djinn"
+	"github.com/Sirupsen/logrus"
+	// "github.com/Sirupsen/logrus/formatters/logstash"
 )
 
 var activeRules rules.Rules
 var theAdventurer adventurer.Adventurer
 
 func init() {
+	logrus.SetLevel(logrus.DebugLevel)
+	// logrus.SetFormatter(&logstash.LogstashFormatter{Type: "application_name"})
+	logrus.Debug("set log level debug")
+	// logrus.SetLevel(logrus.WarnLevel)
+
 	activeRules = rules.GetAdventurersFirstEditionRules()
 	activeRules.SetOptionalCanTradeCoinsForStats(true)
 	// activeRules = rules.GetAdventurersRevisedRules()
+	logrus.WithField("rules_edition", activeRules.RulesEdition()).Info("loaded rules")
 
   theAdventurer = adventurer.NewAdventurer()
+	logrus.WithField("theAdventurer", theAdventurer).Info("loaded Adventurer")
 }
 
 func main() {
-	log.Println("initializing...")
+	logrus.Info("initializing...")
 	initTemplates()
 	http.HandleFunc("/", mainHandler)
 
@@ -42,8 +50,9 @@ func main() {
 	imagesFileServer := http.StripPrefix("/images/", http.FileServer(imagesBox.HTTPBox()))
 	http.Handle("/images/", imagesFileServer)
 
-	log.Println("listening...")
-	http.ListenAndServe(":8080", nil)
+	bind := ":8080"
+	logrus.Info("listening on ", bind)
+	http.ListenAndServe(bind, nil)
 }
 
 func mainHandler(w http.ResponseWriter, r *http.Request) {
@@ -102,6 +111,7 @@ func getView(r *http.Request) string {
 			}
 		}
 	}
+	logrus.WithFields(logrus.Fields{"view": view, "path": path}).Debug("found view")
 	return view
 }
 
@@ -116,7 +126,7 @@ func initTemplates() {
 	// find a rice.Box
 	templateBox, err = rice.FindBox("templates")
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 	tmplMain = initTemplate("main", "main.tmpl")
 
@@ -125,15 +135,19 @@ func initTemplates() {
 }
 
 func initTemplate(name, filename string) *template.Template {
+	logrus.WithFields(logrus.Fields{
+		"name": name,
+		"template": filename,
+		}).Info("initializing template...")
 	// get file contents as string
 	text, err := templateBox.String(filename)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 
 	tmpl, err := template.New(name).Parse(text)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 	return tmpl
 }
