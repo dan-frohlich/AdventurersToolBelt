@@ -1,5 +1,7 @@
 # The Adventurers! Tool Belt
 Character Creation Tool for the Adventures! RPG
+http://www.drivethrurpg.com/product/120987/Adventurers
+https://www.facebook.com/adventurersRPG/
 
 ## Installation
 
