@@ -7,9 +7,9 @@ import (
 	"strings"
 	// "strconv"
 
-	"adventurers_tools/adventurer"
-	"adventurers_tools/rules"
-	"adventurers_tools/storage"
+	"github.com/dan-frohlich/AdventurersToolBelt/adventurer"
+	"github.com/dan-frohlich/AdventurersToolBelt/rules"
+	"github.com/dan-frohlich/AdventurersToolBelt/storage"
 
 	"github.com/GeertJohan/go.rice"
 	"github.com/Sirupsen/logrus"

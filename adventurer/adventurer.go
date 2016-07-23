@@ -1,8 +1,8 @@
 package adventurer
 
 import (
-	"adventurers_tools/math"
-	"adventurers_tools/rules"
+	"github.com/dan-frohlich/AdventurersToolBelt/math"
+	"github.com/dan-frohlich/AdventurersToolBelt/rules"
 )
 
 type Adventurer interface {
