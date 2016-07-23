@@ -1,26 +1,10 @@
 package rules
 
-type Rules interface {
-	MinStat() int
-	MaxStat() int
-	MinEnd() int
-	MaxEnd() int
-  RulesEdition() RulesEdition
-	StatPointFromCoinRatio() float64
-	StatPointForCoinRatio() float64
-	MaxStatPointsFromCoin() int
-	MaxStatPointsForCoin() int
-	StartingCoin() int
-	InitialStatPoints() int
-	MaxStatPoints() int
-	InitialBaseSkills() int
-	InitialAdvancedSkills() int
-	OptionalCanTradeCoinsForStats() bool
-	SetOptionalCanTradeCoinsForStats(bool)
-	ArmorGroups() []string
-	VehicleGroups() []string
-	WeaponGroups() []string
-}
+import (
+	"github.com/GeertJohan/go.rice"
+	"github.com/Sirupsen/logrus"
+	"gopkg.in/yaml.v2"
+)
 
 type RulesEdition int
 
@@ -30,123 +14,102 @@ const (
   REVISED_EDITION = RulesEdition(2)
 )
 
-func GetAdventurersFirstEditionRules() Rules { return firstEdition }
+func GetAdventurersFirstEditionRules() *Rules { return firstEdition }
 
-func GetAdventurersRevisedRules() Rules { return revisedEdition }
+func GetAdventurersRevisedRules() *Rules { return revisedEdition }
 
-var firstEdition *rulesGuide
-var revisedEdition *rulesGuide
-
-// 1e
-// Weapon Groups. Blades, Bows and Slings, Clubs and Axes, Polearms, Power, Unarmed.
-// Armor Groups. Unarmored, Light, Medium, Heavy, Power
-//
-// revised
-// Weapon Groups. Blades, Bows and Slings, Clubs and Axes, Firearms, Polearms, Power, Unarmed.
-// Armor Groups. Unarmored, Light, Medium, Heavy, Power
-// Vehicle Groups. Aircraft, Ground Vehicles, Mounts, Spaceships, Watercraft.
+var firstEdition *Rules
+var revisedEdition *Rules
 
 func init() {
 
-	firstEdition = &rulesGuide{
-    armorGroups:            []string{"Unarmored", "Light", "Medium", "Heavy", "Power"},
-    initialAdvancedSkills:  0,
-    initialBaseSkills:      2,
-    initialStatPoints:      6,
-    maxEnd:                 13,
-    maxStat:                5,
-    maxStatPointsForCoin:   1,
-    maxStatPointsFromCoin:  1,
-    minEnd:                 1,
-    minStat:                -1,
-    rulesEdition:           FIRST_EDITION,
-    startingCoin:           30,
-    statPointForCoinRatio:  2.0,
-    statPointFromCoinRatio: 0.2,
-    vehicleGroups:          []string{},
-    weaponGroups:           []string{"Blades", "Bows and Slings", "Clubs and Axes", "Polearms", "Power", "Unarmed"},
+	firstEdition = &Rules{
+    RulesEdition:           FIRST_EDITION,
   }
 
-	revisedEdition = &rulesGuide{
-    armorGroups:           []string{"Unarmored", "Light", "Medium", "Heavy", "Power"},
-    initialAdvancedSkills: 1,
-    initialBaseSkills:     2,
-    initialStatPoints:     6,
-    maxEnd:                15,
-    maxStat:               6,
-    minEnd:                1,
-    minStat:               -1,
-    rulesEdition:          REVISED_EDITION,
-    startingCoin:          30,
-    vehicleGroups:         []string{"Aircraft", "Ground Vehicles", "Mounts", "Spaceships", "Watercraft"},
-    weaponGroups:          []string{"Blades", "Bows and Slings", "Clubs and Axes", "Firearms", "Polearms", "Power", "Unarmed"},
+	dataBox := rice.MustFindBox("../public/data/")
+	data, err := dataBox.String("adventurers_1e.yml")
+	if err != nil {
+    logrus.WithField("err", err).Fatal("failed to load adventurers_1e.yml")
+  }
+
+  err = yaml.Unmarshal([]byte(data), firstEdition)
+  if err != nil {
+    logrus.WithField("err", err).Fatal("failed to unmarshal adventurers_1e.yml")
+  }
+
+	logrus.WithField("firstEdition", firstEdition).Info("loaded adventurers_1e.yml")
+
+	revisedEdition = &Rules{
+    ArmorGroups:           []string{"Unarmored", "Light", "Medium", "Heavy", "Power"},
+    InitialAdvancedSkills: 1,
+    InitialBaseSkills:     2,
+    InitialStatPoints:     6,
+    MaxEnd:                15,
+    MaxStat:               6,
+    MinEnd:                1,
+    MinStat:               -1,
+    RulesEdition:          REVISED_EDITION,
+    StartingCoin:          30,
+    VehicleGroups:         []string{"Aircraft", "Ground Vehicles", "Mounts", "Spaceships", "Watercraft"},
+    WeaponGroups:          []string{"Blades", "Bows and Slings", "Clubs and Axes", "Firearms", "Polearms", "Power", "Unarmed"},
   }
 }
 
-type rulesGuide struct {
-  armorGroups                   []string
-  initialAdvancedSkills         int
-  initialBaseSkills             int
-  initialStatPoints             int
-  maxEnd                        int
-  maxStat                       int
-  maxStatPointsForCoin          int
-  maxStatPointsFromCoin         int
-  minEnd                        int
-  minStat                       int
-  optionalCanTradeCoinsForStats bool
-  rulesEdition                  RulesEdition
-  startingCoin                  int
-  statPointForCoinRatio         float64
-  statPointFromCoinRatio        float64
-  vehicleGroups                 []string
-  weaponGroups                  []string
+type Rules struct {
+  ArmorGroups                   []string `yaml:"armor_groups"`
+  InitialAdvancedSkills         int `yaml:"initial_advanced_skills"`
+  InitialBaseSkills             int `yaml:"initial_base_skills"`
+  InitialStatPoints             int `yaml:"initial_stat_points"`
+  MaxEnd                        int `yaml:"max_end"`
+  MaxStat                       int `yaml:"max_stat"`
+  MaxStatPointsForCoin          int `yaml:"max_stat_points_for_coin"`
+  MaxStatPointsFromCoin         int `yaml:"max_stat_points_from_coin"`
+  MinEnd                        int `yaml:"min_end"`
+  MinStat                       int `yaml:"min_stat"`
+  OptionalCanTradeCoinsForStats bool `yaml:"optional_can_trade_coins_for_stats"`
+  RulesEdition                  RulesEdition
+  StartingCoin                  int `yaml:"starting_coin"`
+  StatPointForCoinRatio         float64 `yaml:"stat_point_for_coin_ratio"`
+  StatPointFromCoinRatio        float64 `yaml:"stat_point_from_coin_ratio"`
+  VehicleGroups                 []string `yaml:"vehicle_group"`
+  WeaponGroups                  []string `yaml:"weapon_group"`
+	Skills												[]Skill `yaml:"skills"`
+	Gear													Gear `yaml:"gear"`
 }
 
-func (guide *rulesGuide) MinStat() int { return guide.minStat }
+type Skill struct {
+	Name 						string		`yaml:"name"`
+	Basic 					string		`yaml:"basic"`
+	Advanced 				string		`yaml:"advanced"`
+	Specialized 		bool			`yaml:"specialized"`
+	Specializations	[]string	`yaml:"specializations"`
+}
 
-func (guide *rulesGuide) MaxStat() int { return guide.maxStat }
+type Gear struct {
+	Armor		[]Item	`yaml:"armor"`
+	Weapons	[]Item	`yaml:"weapons"`
+	Misc		[]Item	`yaml:"items"`
+}
 
-func (guide *rulesGuide) MinEnd() int { return guide.minEnd }
+type Item struct {
+	Name	string	`yaml:"name"`
+	Coins	int			`yaml:"coins"`
+	Notes	string	`yaml:"notes"`
+	Heavy	int   	`yaml:"heavy"`
+	Att		string	`yaml:"att"`
+	Def 	string	`yaml:"def"`
+	Group	string	`yaml:"group"`
+}
 
-func (guide *rulesGuide) MaxEnd() int { return guide.maxEnd }
-
-func (guide *rulesGuide) StatPointFromCoinRatio() float64 { return guide.statPointFromCoinRatio }
-
-func (guide *rulesGuide) StatPointForCoinRatio() float64 { return guide.statPointForCoinRatio }
-
-func (guide *rulesGuide) MaxStatPointsForCoin() int { return guide.maxStatPointsForCoin }
-
-func (guide *rulesGuide) MaxStatPointsFromCoin() int { return guide.maxStatPointsFromCoin }
-
-func (guide *rulesGuide) StartingCoin() int { return guide.startingCoin }
-
-func (guide *rulesGuide) InitialStatPoints() int { return guide.initialStatPoints }
-
-func (guide *rulesGuide) MaxStatPoints() int {
+func (guide *Rules) MaxStatPoints() int {
 	var possibleBonusStatPoints int
-	if guide.optionalCanTradeCoinsForStats {
-		possibleBonusStatPoints += guide.maxStatPointsFromCoin
+	if guide.OptionalCanTradeCoinsForStats {
+		possibleBonusStatPoints += guide.MaxStatPointsFromCoin
 	}
-	return guide.initialStatPoints + possibleBonusStatPoints
+	return guide.InitialStatPoints + possibleBonusStatPoints
 }
 
-func (guide *rulesGuide) InitialBaseSkills() int { return guide.initialBaseSkills }
-
-func (guide *rulesGuide) InitialAdvancedSkills() int { return guide.initialAdvancedSkills }
-
-func (guide *rulesGuide) OptionalCanTradeCoinsForStats() bool {
-	return guide.optionalCanTradeCoinsForStats
+func (guide *Rules) SetOptionalCanTradeCoinsForStats(v bool) {
+	guide.OptionalCanTradeCoinsForStats = v
 }
-
-func (guide *rulesGuide) SetOptionalCanTradeCoinsForStats(v bool) {
-	guide.optionalCanTradeCoinsForStats = v
-}
-
-func (guide *rulesGuide) RulesEdition() RulesEdition { return guide.rulesEdition }
-
-func (guide *rulesGuide) ArmorGroups() []string { return guide.armorGroups }
-
-func (guide *rulesGuide) VehicleGroups() []string { return guide.vehicleGroups }
-
-func (guide *rulesGuide) WeaponGroups() []string { return guide.weaponGroups }

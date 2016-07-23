@@ -15,7 +15,7 @@ import (
 	// "github.com/Sirupsen/logrus/formatters/logstash"
 )
 
-var activeRules rules.Rules
+var activeRules *rules.Rules
 var theAdventurer adventurer.Adventurer
 
 func init() {
@@ -27,7 +27,7 @@ func init() {
 	activeRules = rules.GetAdventurersFirstEditionRules()
 	activeRules.SetOptionalCanTradeCoinsForStats(true)
 	// activeRules = rules.GetAdventurersRevisedRules()
-	logrus.WithField("rules_edition", activeRules.RulesEdition()).Info("loaded rules")
+	logrus.WithField("rules_edition", activeRules.RulesEdition).Info("loaded rules")
 
   theAdventurer = adventurer.NewAdventurer()
 	logrus.WithField("theAdventurer", theAdventurer).Info("loaded Adventurer")
@@ -83,12 +83,12 @@ func addAdventurerToModel(model map[string]interface{}) {
 
 func addRulesToModel(model map[string]interface{}) {
   model["rules"] = activeRules
-	model["rules_min_stat"] = activeRules.MinStat()
-	model["rules_max_stat"] = activeRules.MaxStat()
-	model["rules_min_end"] = activeRules.MinEnd()
-	model["rules_max_end"] = activeRules.MaxEnd()
-	model["rules_initial_stat_points"] = activeRules.InitialStatPoints()
-	model["rules_max_stat_points"] = activeRules.MaxStatPoints()
+	model["rules_min_stat"] = activeRules.MinStat
+	model["rules_max_stat"] = activeRules.MaxStat
+	model["rules_min_end"] = activeRules.MinEnd
+	model["rules_max_end"] = activeRules.MaxEnd
+	model["rules_initial_stat_points"] = activeRules.InitialStatPoints
+	model["rules_max_stat_points"] = activeRules.MaxStatPoints
 }
 
 var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "create_4", "create_5", "load_save_print"}

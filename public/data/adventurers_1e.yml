@@ -1,0 +1,280 @@
+
+short_name:                 Adventurers 1e
+description:                Adventurers! First Edition
+initial_advanced_skills:    0
+initial_base_skills:        2
+initial_stat_points:        6
+max_end:                    13
+max_stat:                   5
+max_stat_points_for_coin:   1
+max_stat_points_from_coin:  1
+min_end:                    1
+min_stat:                   -1
+starting_coin:              30
+stat_pointfor_coin_ratio:   2.0
+stat_pointfrom_coin_ratio:  0.2
+
+armor_groups:
+  - Unarmored
+  - Light
+  - Medium
+  - Heavy
+  - Power
+
+weapon_groups:
+  - Blades
+  - Bows and Slings
+  - Clubs and Axes
+  - Polearms
+  - Power
+  - Unarmed
+
+
+skills:
+  - name:         Athletics
+    basic:        Advantage in athletic activities (climbing, swimming...)
+    advanced:     +1 Def unarmored and unencumbered. Natural 11-12 = Critical Success in Defensive rolls.
+    specialized:  false
+
+  - name:         Charisma
+    basic:        Advantage in social activities (persuasion, intimidation bargaining...)
+    advanced:     Spend 1 Her and all your friends or enemies receive +1 or -1 to rolls for the rest of the scene.
+    specialized:  false
+
+  - name:         Healing
+    basic:        Advantage in healing rolls. Successful healing rolls cure +1 End.
+    advanced:     Begin adventure with 1 free Potion. Create Potion with Mind (-2) roll by spending 1 Her.
+    specialized:  false
+
+  - name:         Learning
+    basic:        Advantage in knowledge related rolls (history, geography, ancient lore, curios).
+    advanced:     Spend 1 Her to create 1 setting "fact" (GM permission), to solve a situation or grant +3 to a roll.
+    specialized:  false
+
+  - name:         Minion
+    basic:        You aquire a loyal follower (4 Stat points, 1 Skill).
+    advanced:     Your follower improves (+2 Stats points, +1 Skill)
+    specialized:  true
+
+  - name:         Relic
+    basic:        You aquire a Relic of GMs choice.
+    advanced:     Your Relic becomes more powerful.
+    specialized:  true
+
+  - name:         Perception
+    basic:        Advantage in rolls to notice hidden things, clues, details. +1 Agi for Initiative only.
+    advanced:     Sense incomming danger on a Mnd (-2) roll. +2 Agi for Initiative only.
+    specialized:  false
+
+  - name:         Power
+    basic:        You have supernatural powers. You can use power items. Choose 1 Sphere of Power.
+    advanced:     +2 to Power rolls in your Sphere, Strain only happens on a Critical Failure.
+    specialized:  true
+    specializations:
+      - Damage
+      - Empower
+      - Healing
+      - Illusion
+      - Investigation
+      - Mind Control
+      - Protection
+      - Summoning
+      - Transmutation
+
+  - name:         Survival
+    basic:        Advantage in outdoor activities (tracking, riding...). In the wild, find a Meal with Mnd (+2) roll.
+    advanced:     Advantage in Att and Def against animals. If you have a beast Minion it gains +2 Stats
+    specialized:  false
+
+  - name:         Stealth
+    basic:        Advantage in stealthy activities (move silently, lockpicking...). +1 Damage vs unaware foes.
+    advanced:     Contacts in the criminal underworld. +2 Att and x2 Damage vs unaware foes.
+    specialized:  false
+
+  - name:         Weaponcraft
+    basic:        Choose a Weapon Group. Advantage in Att or Def (choose at turn start) with that Group.
+    advanced:     Advantage in Att and Def with your Weapon Group. Natual 11-12 = Critical Success on Attack Rolls.
+    specialized:  true
+    specializations:
+      - Unarmed
+      - Blades
+      - Clubs and Axes
+      - Polearm
+      - Bows and Slings
+
+gear:
+
+  armor:
+
+    - name:   Unarmored
+      def:    Agi
+
+    - name:   Light Armor
+      def:    Agi
+      coins:  5
+      notes:  "AR: 5, Heavy"
+      heavy:  1
+
+    - name:   Medium Armor
+      def:    3/Agi-1
+      coins:  8
+      notes:  "AR: 4, Heavy x2"
+      heavy:  2
+
+    - name:   Heavy Armor
+      def:    4/Agi-2
+      coins:  20
+      notes:  "AR: 3-4: -1, 5-6: -2, Heavy x3"
+      heavy:  3
+
+    - name:   Mage Armor
+      def:    Mnd-1
+      coins:  15
+      notes:  "AR: 4, Power Item"
+
+    - name:   Shield
+      def:    "-"
+      coins:  4
+      notes:  "Deflect"
+
+    - name:   Mage Shield
+      def:    "-"
+      coins:  12
+      notes:  "Deflect, Power Item"
+
+  items:
+
+    - name:   Backpack
+      coins:  3
+      notes:  "Allow you to cary items"
+
+    - name:   Book of Lore
+      coins:  8
+      notes:  "+2 to Mnd on knowledge rolls in one field"
+
+    - name:   Focus (1)
+      coins:  3
+      notes:  "Absorb 1 strain then destroyed."
+
+    - name:   Focus (2)
+      coins:  6
+      notes:  "Absorb 2 strain then destroyed."
+
+    - name:   Focus (3)
+      coins:  9
+      notes:  "Absorb 3 strain then destroyed."
+
+    - name:   Healing Kit
+      coins:  7
+      notes:  "+1 Healing rolls."
+
+    - name:   Healing Potion
+      coins:  10
+      notes:  "Drinker instantly recovered 4 End."
+
+    - name:   Lantern
+      coins:  5
+      notes:  "Light in 10-foot radius , enough oil for 4 hours."
+
+    - name:   Lockpicks
+      coins:  6
+      notes:  "+1 Agi rolls to pry locks open."
+
+    - name:   Meal
+      coins:  2
+      notes:  "Eat to recover 1 End. (max 2/day)"
+
+    - name:   Oil Flask
+      coins:  2
+      notes:  "Refils Lantern, Range (10), can be det afire."
+
+    - name:   Rope
+      coins:  3
+      notes:  "30 feet long."
+
+  weapons:
+
+    - name:   Brawling
+      group:  Unarmed
+      att:    Agi/Str-1
+      coins:  0
+      notes:
+
+    - name:   Martial Arts
+      group:  Unarmed
+      att:    Agi/Str
+      coins:  0
+      notes:  "With Weaponcraft (unarmored), Balanced"
+
+    - name:   Dagger
+      group:  Blades
+      att:    Agi
+      coins:  3
+      notes:  "Range (5)"
+
+    - name:   Sword
+      group:  Blades
+      att:    Agi/Str
+      coins:  7
+      notes:  "Balanced"
+
+    - name:   Greatsword
+      group:  Blades
+      att:    Str
+      coins:  12
+      notes:  "2H, +1 Dmg, Heavy, -1 AR rolls"
+      heavy:  1
+
+    - name:   Axe
+      group:  Clubs and Axes
+      att:    Str
+      coins:  5
+      notes:  "-1 AR rolls"
+
+    - name:   Mace
+      group:  Clubs and Axes
+      att:    Str
+      coins:  5
+      notes:  "-1 AR rolls"
+
+    - name:   Greataxe
+      group:  Clubs and Axes
+      att:    Str
+      coins:  8
+      notes:  "2H, +1 Dmg, Heavy, -1 AR rolls, -1 Def"
+
+    - name:   Mage Weapon
+      group:  Polearm
+      att:    Mnd
+      coins:  15
+      notes:  "Power Item, Range (15)"
+
+    - name:   Staff
+      group:  Polearm
+      att:    Agi
+      coins:  2
+      notes:  "2H, Deflect"
+
+    - name:   Spear
+      group:  Polearm
+      att:    Agi
+      coins:  4
+      notes:  "2H, Deflect, Range (10)"
+
+    - name:   Bow
+      group:  Bows and Slings
+      att:    Agi
+      coins:  7
+      notes:  "Range (20)"
+
+    - name:   Crossbow
+      group:  Bows and Slings
+      att:    Agi+1
+      coins:  15
+      notes:  "1 Round to reload, Range (30)"
+
+    - name:   Sling
+      group:  Bows and Slings
+      att:    Agi/Str
+      coins:  2
+      notes:  "Range (15)"

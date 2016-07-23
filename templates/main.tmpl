@@ -270,6 +270,9 @@
 {{if eq .view "create_2" }}
   {{template "main_create_2" . }}
 {{end}}
+{{if eq .view "create_3" }}
+  {{template "main_create_3" . }}
+{{end}}
 {{if eq .view "options" }}
 {{template "main_options" . }}
 {{end}}
@@ -364,10 +367,15 @@ Str: {{.char.Strength}}
   </div>
 </div>
 
-
-
 {{end}}
 
+{{ define "main_create_3" }}
+<ol>
+{{ range $key, $value := .rules.Skills}}
+<li> {{ $value.Name }} {{if $value.Specialized }}<strong>R</strong>{{end}}</li>
+{{end}}
+</ol>
+{{end}}
 
 {{ define "main_options" }} <h4>[Optional rules toggles, Setting Selection.]</h4>
 <p>Rules Edition:
