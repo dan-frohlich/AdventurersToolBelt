@@ -1,7 +1,27 @@
 # AdventurersToolBelt
 Character Creation Tool for the Adventures! RPG
 
-### Building the Code
+## Installation
+
+### for Go programmers
+```
+go get github.com/dan-frohlich/AdventurersToolBelt
+```
+
+Then run as
+```
+./bin/AdventurersToolBelt
+```
+### Linux...
+***TODO***
+
+### OSX...
+***TODO***
+
+### Windows...
+***TODO***
+
+#### Building the Code
 No dependency management is used in the project. to build you will need to `go get` those dependencies.
 
 Currently this includes the following..
