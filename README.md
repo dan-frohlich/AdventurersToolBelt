@@ -1,4 +1,4 @@
-# AdventurersToolBelt
+# The Adventurers! Tool Belt
 Character Creation Tool for the Adventures! RPG
 
 ## Installation
@@ -8,10 +8,8 @@ Character Creation Tool for the Adventures! RPG
 go get github.com/dan-frohlich/AdventurersToolBelt
 ```
 
-Then run as
-```
-./bin/AdventurersToolBelt
-```
+Then run as `./bin/AdventurersToolBelt` and point your web browser to http://localhost:8080/
+
 ### Linux...
 ***TODO***
 

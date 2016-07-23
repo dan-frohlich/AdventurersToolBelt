@@ -294,6 +294,9 @@
 {{if eq .view "create_gear" }}
   {{template "main_create_gear" . }}
 {{end}}
+{{if eq .view "create_review" }}
+  {{template "main_create_review" . }}
+{{end}}
 {{if eq .view "options" }}
 {{template "main_options" . }}
 {{end}}
@@ -306,7 +309,7 @@
 <a {{if eq .view "create_stats" }}class="active"{{end}} href="/create_stats">Stats</a>
 <a {{if eq .view "create_skills" }}class="active"{{end}} href="/create_skills">Skills</a>
 <a {{if eq .view "create_gear" }}class="active"{{end}} href="/create_gear">Gear</a>
-<a {{if eq .view "create_5" }}class="active"{{end}} href="/create_5">Review</a></h6>
+<a {{if eq .view "create_review" }}class="active"{{end}} href="/create_review">Review</a></h6>
 {{end}}
 
 {{end}}
@@ -423,6 +426,12 @@ Str: {{.adventurer.Strength}}
 {{end}}
 </ol>
 {{end}}
+
+{{ define "main_create_review" }}
+<h3>Character</h3>
+{{.adventurer}}
+{{end}}
+
 
 {{ define "main_options" }} <h4>[Optional rules toggles, Setting Selection.]</h4>
 <p>Rules Edition:

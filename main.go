@@ -96,7 +96,7 @@ func addRulesToModel(model map[string]interface{}) {
 	model["rules"] = activeRules
 }
 
-var VIEWS = []string{"home", "about", "options", "create_general", "create_stats", "create_skills", "create_gear", "create_5", "load_save_print"}
+var VIEWS = []string{"home", "about", "options", "create_general", "create_stats", "create_skills", "create_gear", "create_review", "load_save_print"}
 
 func getActiveMenu(view string) string {
 	if strings.HasPrefix(view, "create") {
