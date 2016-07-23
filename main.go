@@ -74,24 +74,15 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func addAdventurerToModel(model map[string]interface{}) {
-  model["char"] = theAdventurer
-	// model["char_strength"] = theAdventurer.Strength()
-	// model["char_agility"] = theAdventurer.Agility()
-	// model["char_mind"] = theAdventurer.Mind()
+  model["adventurer"] = theAdventurer
 	model["CreationPoints"] = theAdventurer.CreationPoints()
 }
 
 func addRulesToModel(model map[string]interface{}) {
   model["rules"] = activeRules
-	model["rules_min_stat"] = activeRules.MinStat
-	model["rules_max_stat"] = activeRules.MaxStat
-	model["rules_min_end"] = activeRules.MinEnd
-	model["rules_max_end"] = activeRules.MaxEnd
-	model["rules_initial_stat_points"] = activeRules.InitialStatPoints
-	model["rules_max_stat_points"] = activeRules.MaxStatPoints
 }
 
-var VIEWS = []string{"home", "about", "options", "create_1", "create_2", "create_3", "create_4", "create_5", "load_save_print"}
+var VIEWS = []string{"home", "about", "options", "create_general", "create_stats", "create_skills", "create_gear", "create_5", "load_save_print"}
 
 func getActiveMenu(view string) string {
 	if strings.HasPrefix(view, "create") {
