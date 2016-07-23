@@ -2,7 +2,7 @@
 short_name:                 Adventurers 1e
 description:                Adventurers! First Edition
 initial_advanced_skills:    0
-initial_base_skills:        2
+initial_basic_skills:        2
 initial_stat_points:        6
 max_end:                    13
 max_stat:                   5
@@ -10,7 +10,7 @@ max_stat_points_for_coin:   1
 max_stat_points_from_coin:  1
 min_end:                    1
 min_stat:                   -1
-starting_coin:              30
+initial_coin:              30
 stat_pointfor_coin_ratio:   2.0
 stat_pointfrom_coin_ratio:  0.2
 

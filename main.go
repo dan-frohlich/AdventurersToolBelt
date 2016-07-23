@@ -9,6 +9,7 @@ import (
 
 	"adventurers_tools/adventurer"
 	"adventurers_tools/rules"
+	"adventurers_tools/storage"
 
 	"github.com/GeertJohan/go.rice"
 	"github.com/Sirupsen/logrus"
@@ -19,9 +20,10 @@ var activeRules *rules.Rules
 var theAdventurer adventurer.Adventurer
 
 func init() {
-	logrus.SetLevel(logrus.DebugLevel)
+	level := logrus.DebugLevel
+	logrus.SetLevel(level)
 	// logrus.SetFormatter(&logstash.LogstashFormatter{Type: "application_name"})
-	logrus.Debug("set log level debug")
+	logrus.WithField("level", level).Debug("set log level")
 	// logrus.SetLevel(logrus.WarnLevel)
 
 	activeRules = rules.GetAdventurersFirstEditionRules()
@@ -29,12 +31,22 @@ func init() {
 	// activeRules = rules.GetAdventurersRevisedRules()
 	logrus.WithField("rules_edition", activeRules.RulesEdition).Info("loaded rules")
 
-  theAdventurer = adventurer.NewAdventurer()
+	theAdventurer = adventurer.NewAdventurer(*activeRules)
 	logrus.WithField("theAdventurer", theAdventurer).Info("loaded Adventurer")
 }
 
 func main() {
-	logrus.Info("initializing...")
+	initHomeDir()
+	initWebServer()
+}
+
+func initHomeDir() {
+	storage.Bootstrap()
+	storage.List()
+}
+
+func initWebServer() {
+	logrus.Debug("initializing Web Server...")
 	initTemplates()
 	http.HandleFunc("/", mainHandler)
 
@@ -61,25 +73,24 @@ func mainHandler(w http.ResponseWriter, r *http.Request) {
 	activeMenu := getActiveMenu(view)
 
 	model := map[string]interface{}{
-		"view":         view,
-		"acviveMenu":   activeMenu,
+		"view":       view,
+		"acviveMenu": activeMenu,
 	}
 
 	addRulesToModel(model)
 
-  addAdventurerToModel(model)
+	addAdventurerToModel(model)
 
 	tmplMain.Execute(w, model)
 
 }
 
 func addAdventurerToModel(model map[string]interface{}) {
-  model["adventurer"] = theAdventurer
-	model["CreationPoints"] = theAdventurer.CreationPoints()
+	model["adventurer"] = theAdventurer
 }
 
 func addRulesToModel(model map[string]interface{}) {
-  model["rules"] = activeRules
+	model["rules"] = activeRules
 }
 
 var VIEWS = []string{"home", "about", "options", "create_general", "create_stats", "create_skills", "create_gear", "create_5", "load_save_print"}
@@ -102,7 +113,7 @@ func getView(r *http.Request) string {
 			}
 		}
 	}
-	logrus.WithFields(logrus.Fields{"view": view, "path": path}).Debug("found view")
+	// logrus.WithFields(logrus.Fields{"view": view, "path": path}).Debug("found view")
 	return view
 }
 
@@ -127,9 +138,9 @@ func initTemplates() {
 
 func initTemplate(name, filename string) *template.Template {
 	logrus.WithFields(logrus.Fields{
-		"name": name,
+		"name":     name,
 		"template": filename,
-		}).Info("initializing template...")
+	}).Info("initializing template...")
 	// get file contents as string
 	text, err := templateBox.String(filename)
 	if err != nil {

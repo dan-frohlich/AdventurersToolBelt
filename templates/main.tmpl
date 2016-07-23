@@ -41,6 +41,8 @@
     var gageAgility
     var gageMind
     onload = function () {
+    {{if eq .view "create_stats" }}
+
       gageStrength = new JustGage( {
           id: "gageStrength",
           value: 0,
@@ -83,9 +85,9 @@
           levelColorsGradient: false
         } );
 
-      gagePoints = new JustGage( {
-          id: "gagePoints",
-          value: {{.rules.InitialStatPoints}},
+      gageCreationStatPoints = new JustGage( {
+          id: "gageCreationStatPoints",
+          value: {{.adventurer.StatCreationPoints}},
           gaugeWidthScale: 0.7,
           min: 0,
           max: {{.rules.MaxStatPoints}},
@@ -125,10 +127,26 @@
           levelColorsGradient: false
         } );
 
-
       setStrength( {{.adventurer.Strength}} )
       setAgility( {{.adventurer.Agility}} )
       setMind( {{.adventurer.Mind}} )
+      {{end}}
+      {{if eq .view "create_skills" }}
+        gageBasicSkillCreationPoints = new JustGage( {
+            id: "gageBasicSkillCreationPoints",
+            value: {{.adventurer.BasicSkillCreationPoints}},
+            gaugeWidthScale: 0.7,
+            min: 0,
+            max: {{.rules.InitialBasicSkills}},
+            title: "Skill Points",
+            label: '',
+            valueFontColor: "#000000",
+            titleFontColor: "#000000",
+            labelFontColor: "#000000",
+            levelColorsGradient: false
+          } );
+      {{end}}
+
     }
 
     var str, agi, mnd =0
@@ -138,7 +156,7 @@
       gageStrength.refresh( x );
       str = x ;
       points = {{.rules.InitialStatPoints}} - str - agi - mnd;
-      gagePoints.refresh( points );
+      gageCreationStatPoints.refresh( points );
       heroism = 1 + Math.min(str, agi, mnd);
       gageHeroism.refresh( heroism );
 
@@ -149,7 +167,7 @@
       gageAgility.refresh( x );
       agi = x ;
       points = {{.rules.InitialStatPoints}} - str - agi - mnd;
-      gagePoints.refresh( points );
+      gageCreationStatPoints.refresh( points );
       heroism = 1 + Math.min(str, agi, mnd);
       gageHeroism.refresh( heroism );
 
@@ -160,7 +178,7 @@
       gageMind.refresh( x );
       mnd = x ;
       points = {{.rules.InitialStatPoints}} - str - agi - mnd;
-      gagePoints.refresh( points );
+      gageCreationStatPoints.refresh( points );
       heroism = 1 + Math.min(str, agi, mnd);
       gageHeroism.refresh( heroism );
     }
@@ -354,7 +372,7 @@ Str: {{.adventurer.Strength}}
 
 <div class="mainAttributeGroup" >
   <div class="attribute">
-    <div id="gagePoints" style="width:200px; height:160px"
+    <div id="gageCreationStatPoints" style="width:200px; height:160px"
         data-toggle="tooltip" title="Remaining Points to Spend"></div>
   </div>
 </div>
@@ -373,11 +391,19 @@ Str: {{.adventurer.Strength}}
 {{end}}
 
 {{ define "main_create_skills" }}
-<ol>
-{{ range $key, $value := .rules.Skills}}
-<li> {{ $value.Name }} {{if $value.Specialized }}<strong>R</strong>{{end}}</li>
-{{end}}
-</ol>
+<div class="primaryAttributeGroup">
+  <ol>
+  {{ range $key, $value := .rules.Skills}}
+    <li> {{ $value.Name }} {{if $value.Specialized }}<strong>R</strong>{{end}}</li>
+  {{end}}
+  </ol>
+</div>
+<div class="mainAttributeGroup" >
+  <div class="attribute">
+    <div id="gageBasicSkillCreationPoints" style="width:200px; height:160px"
+        data-toggle="tooltip" title="Remaining Points to Spend"></div>
+  </div>
+</div>
 {{end}}
 
 {{ define "main_create_gear" }}

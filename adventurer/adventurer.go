@@ -2,31 +2,40 @@ package adventurer
 
 import (
 	"adventurers_tools/math"
+	"adventurers_tools/rules"
 )
 
 type Adventurer interface {
 	Agility() int
 	BaseDef() int
-	CreationPoints() int
+	StatCreationPoints() int
+	BasicSkillCreationPoints() int
 	Endurance() int
 	Heroism() int
 	Mind() int
 	Strength() int
 	SetAgility(int)
-	SetCreationPoints(int)
+	SetStatCreationPoints(int)
+	SetBasicSkillCreationPoints(int)
 	SetMind(int)
 	SetStrength(int)
 }
 
 type adventurer struct {
-	agility        int
-	creationPoints int
-	mind           int
-	strength       int
+	agility                     int
+	statCreationPoints          int
+	basicSkillCreationPoints    int
+	advancedSkillCreationPoints int
+	mind                        int
+	strength                    int
 }
 
-func NewAdventurer() Adventurer {
-	return &adventurer{creationPoints: 6}
+func NewAdventurer(theRules rules.Rules) Adventurer {
+	return &adventurer{
+		statCreationPoints:          theRules.InitialStatPoints,
+		basicSkillCreationPoints:    theRules.InitialBasicSkills,
+		advancedSkillCreationPoints: theRules.InitialAdvancedSkills,
+	}
 }
 
 func (adv *adventurer) Agility() int {
@@ -37,8 +46,12 @@ func (adv *adventurer) BaseDef() int {
 	return adv.agility
 }
 
-func (adv *adventurer) CreationPoints() int {
-	return adv.creationPoints
+func (adv *adventurer) StatCreationPoints() int {
+	return adv.statCreationPoints
+}
+
+func (adv *adventurer) BasicSkillCreationPoints() int {
+	return adv.basicSkillCreationPoints
 }
 
 func (adv *adventurer) Endurance() int {
@@ -61,8 +74,12 @@ func (adv *adventurer) SetAgility(v int) {
 	adv.agility = v
 }
 
-func (adv *adventurer) SetCreationPoints(v int) {
-	adv.creationPoints = v
+func (adv *adventurer) SetStatCreationPoints(v int) {
+	adv.statCreationPoints = v
+}
+
+func (adv *adventurer) SetBasicSkillCreationPoints(v int) {
+	adv.basicSkillCreationPoints = v
 }
 
 func (adv *adventurer) SetMind(v int) {
