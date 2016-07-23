@@ -64,7 +64,10 @@ func initWebServer() {
 
 	bind := ":8080"
 	logrus.Info("listening on ", bind)
-	http.ListenAndServe(bind, nil)
+	err := http.ListenAndServe(bind, nil)
+	if err != nil {
+		logrus.WithField("error", err).Fatal("http.ListenAndServe failed.")
+	}
 }
 
 func mainHandler(w http.ResponseWriter, r *http.Request) {
