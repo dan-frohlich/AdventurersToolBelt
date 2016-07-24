@@ -410,21 +410,42 @@ Str: {{.adventurer.Strength}}
 {{end}}
 
 {{ define "main_create_gear" }}
-<ol>Armor
-{{ range $key, $value := .rules.Gear.Armor}}
-<li> {{ $value.Name }} | {{ $value.Def }} | {{ $value.Coins }} | {{ $value.Notes }} </li>
-{{end}}
-</ol>
-<ol>Misc Items
-{{ range $key, $value := .rules.Gear.Misc}}
-<li> {{ $value.Name }} | {{ $value.Coins }} | {{ $value.Notes }} </li>
-{{end}}
-</ol>
-<ol>Weapons
-{{ range $key, $value := .rules.Gear.Weapons}}
-<li> {{ $value.Name }} | {{ $value.Att }} | {{ $value.Coins }} | {{ $value.Notes }} </li>
-{{end}}
-</ol>
+<div class="mainAttributeGroup" >
+  <table>
+    <tr><th class="tableleft" >Armor</th><th class="tablecenter" >DEF</th>
+      <th class="tablecenter" >Coins</th><th class="tableright" >Notes</th></tr>
+    {{ range $key, $value := .rules.Gear.Armor}}
+    <tr><td class="tableleft" >{{ $value.Name }}</td><td class="tablecenter" >{{ $value.Def }}</td>
+      <td class="tablecenter" >{{ $value.Coins }}</td><td class="tableright" >{{ $value.Notes }}</td></tr>
+    {{end}}
+    </ol>
+  </table>
+</div>
+
+<div class="mainAttributeGroup" >
+  <table>
+    <tr><th class="tableleft" >Misc Items</th>
+      <th class="tablecenter" >Coins</th><th class="tableright" >Notes</th></tr>
+    {{ range $key, $value := .rules.Gear.Misc}}
+    <tr><td class="tableleft" >{{ $value.Name }}</td>
+      <td class="tablecenter" >{{ $value.Coins }}</td><td class="tableright" >{{ $value.Notes }}</td></tr>
+    {{end}}
+    </ol>
+  </table>
+</div>
+
+<div class="mainAttributeGroup" >
+  <table>
+    <tr><th class="tableleft" >Weapons</th><th class="tablecenter" >ATT</th>
+      <th class="tablecenter" >Coins</th><th class="tableright" >Notes</th></tr>
+    {{ range $key, $value := .rules.Gear.Weapons}}
+    <tr><td class="tableleft" >{{ $value.Name }}</td><td class="tablecenter" >{{ $value.Att }}</td>
+      <td class="tablecenter" >{{ $value.Coins }}</td><td class="tableright" >{{ $value.Notes }}</td></tr>
+    {{end}}
+    </ol>
+  </table>
+</div>
+
 {{end}}
 
 {{ define "main_create_review" }}

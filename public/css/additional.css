@@ -148,6 +148,22 @@ table td {
   text-align: left;
 }
 
+table .tableleft {
+  padding-right: .2em;
+  text-align: right;
+}
+
+table .tablecenter {
+  padding-left: .2em;
+  text-align: center;
+  content: "xxx";
+}
+
+table .tableright {
+  padding-left: .2em;
+  text-align: left;
+}
+
 /*#footer
 {
     position: fixed;
