@@ -428,8 +428,48 @@ Str: {{.adventurer.Strength}}
 {{end}}
 
 {{ define "main_create_review" }}
-<h3>Character</h3>
-{{.adventurer}}
+<div class="mainAttributeGroup" >
+  <table>
+    <tr><th>Name</th><td>{{.adventurer.Name}}</td></tr>
+    <tr><th>Agility</th><td>{{.adventurer.Agility}}</td></tr>
+    <tr><th>Strength</th><td>{{.adventurer.Strength}}</td></tr>
+    <tr><th>Mind</th><td>{{.adventurer.Mind}}</td></tr>
+    <tr><th>Endurance</th><td>{{.adventurer.Endurance}}</td></tr>
+    <tr><th>Heroism</th><td>{{.adventurer.Heroism}}</td></tr>
+  </table>
+</div>
+
+<div class="mainAttributeGroup" >
+  <table>
+    <tr><th>Concept</th><td>{{.adventurer.Concept}}</td></tr>
+    <tr><th>SourceFile</th><td>{{.adventurer.SourceFile}}</td></tr>
+    <tr><th>Stat Points</th><td>{{.adventurer.StatCreationPoints}}</td></tr>
+    <tr><th>Basic Skill Points</th><td>{{.adventurer.BasicSkillCreationPoints}}</td></tr>
+    <tr><th>Advanced Skill Points</th><td>{{.adventurer.AdvancedSkillCreationPoints}}</td></tr>
+    <tr><th>Rules</th><td>{{.adventurer.Rules.RulesEdition}}</td></tr>
+  </table>
+</div>
+
+<div class="mainAttributeGroup" >
+  <table>
+  <tr><th>Basic Skills</th><td>&nbsp;</td></tr>
+  {{ range $key, $value := .adventurer.BasicSkills}}
+  <tr><th>&nbsp;</th><td>{{$value.Name}}</td></tr>
+  {{end}}
+  <tr><th>Advanced Skills</th><td>&nbsp;</td></tr>
+  {{ range $key, $value := .adventurer.AdvancedSkills}}
+  <tr><th>&nbsp;</th><td>{{$value.Name}}</td></tr>
+  {{end}}
+  </table>
+</div>
+
+<!--
+
+BaseDef() int
+
+BasicSkills() []rules.Skill
+AdvancedSkills() []rules.Skill
+-->
 {{end}}
 
 

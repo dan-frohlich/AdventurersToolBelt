@@ -28,7 +28,7 @@ func Bootstrap() {
 		logrus.WithField("error", err).WithField("path", Home).Fatal("could not create app home dir")
 	}
 
-	subfolders := []string{"characters", "settings", "rules"}
+	subfolders := []string{"adventurers", "settings", "rules"}
 
 	for _, folder := range subfolders {
 		fullPath := filepath.Join(Home, folder)

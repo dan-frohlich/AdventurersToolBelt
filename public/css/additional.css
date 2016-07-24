@@ -140,7 +140,13 @@ hr {
   -webkit-border-radius:10px;
 }
 
+table th {
+  text-align: right;
+}
 
+table td {
+  text-align: left;
+}
 
 /*#footer
 {
